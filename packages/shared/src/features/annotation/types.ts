@@ -62,7 +62,7 @@ export const UpdateAnnotationScoreData = z.discriminatedUnion("dataType", [
 
 export const CreateQueueData = z.object({
   name: z.string().min(1).max(35),
-  description: z.string().optional(),
+  description: z.string().max(1000).optional(),
   scoreConfigs: z.array(z.string()).min(1, {
     message: "At least 1 score config must be selected",
   }),

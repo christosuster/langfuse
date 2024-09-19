@@ -152,6 +152,7 @@ export const CreateAnnotationQueueButton = ({
                       className="text-xs focus:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 active:ring-0"
                     />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />

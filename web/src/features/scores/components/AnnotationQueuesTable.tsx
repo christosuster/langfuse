@@ -19,6 +19,7 @@ import {
 import { MoreVertical } from "lucide-react";
 import { Button } from "@/src/components/ui/button";
 import { DeleteAnnotationQueueButton } from "@/src/features/scores/components/DeleteAnnotationQueueButton";
+import { cn } from "@/src/utils/tailwind";
 
 type RowData = {
   key: {
@@ -68,6 +69,19 @@ export function AnnotationQueuesTable({ projectId }: { projectId: string }) {
       id: "description",
       enableHiding: true,
       size: 200,
+      cell: ({ row }) => {
+        const description: RowData["description"] = row.getValue("description");
+        return (
+          <span
+            className={cn(
+              "grid h-full items-center overflow-auto",
+              rowHeight === "s" && "leading-3",
+            )}
+          >
+            {description}
+          </span>
+        );
+      },
     },
     {
       accessorKey: "countCompletedItems",
@@ -94,7 +108,12 @@ export function AnnotationQueuesTable({ projectId }: { projectId: string }) {
           row.getValue("scoreConfigs");
 
         return (
-          <span className="grid h-full items-center overflow-auto leading-loose">
+          <span
+            className={cn(
+              "grid h-full items-center overflow-auto",
+              rowHeight === "s" && "leading-3",
+            )}
+          >
             {scoreConfigs
               .map(
                 (config) =>
