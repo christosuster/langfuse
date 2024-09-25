@@ -3,6 +3,7 @@ import { TracePreview } from "@/src/components/trace/TracePreview";
 import { Button } from "@/src/components/ui/button";
 import { Card } from "@/src/components/ui/card";
 import useSessionStorage from "@/src/components/useSessionStorage";
+import { showSuccessToast } from "@/src/features/notifications/showSuccessToast";
 import { AnnotateDrawerContent } from "@/src/features/scores/components/AnnotateDrawerContent";
 import { api } from "@/src/utils/api";
 import {
@@ -137,18 +138,26 @@ export const AnnotationQueueItemPage: React.FC<{
   );
 
   // TODO: refetch after a few minutes
-  const countItemsData =
-    api.annotationQueues.pendingItemsCountByQueueId.useQuery({
-      queueId: annotationQueueId,
-      projectId,
-    });
+  const pendingItemIds = api.annotationQueues.pendingItemsByQueueId.useQuery({
+    queueId: annotationQueueId,
+    projectId,
+  });
 
   const utils = api.useUtils();
   const completeMutation = api.annotationQueueItems.complete.useMutation({
     onSuccess: () => {
       utils.annotationQueueItems.invalidate();
+      showSuccessToast({
+        title: "Item marked as complete",
+        description: "The item is successfully marked as complete.",
+      });
     },
   });
+
+  const totalItems = useMemo(() => {
+    return [...new Set([...seenItemIds, ...(pendingItemIds.data ?? [])])]
+      .length;
+  }, [pendingItemIds.data, seenItemIds]);
 
   const configs = queueData.data?.scoreConfigs ?? [];
 
@@ -187,14 +196,12 @@ export const AnnotationQueueItemPage: React.FC<{
     return <div>Loading...</div>;
   }
 
-  if (!relevantItem) {
+  if (
+    !relevantItem ||
+    (pendingItemIds.data?.length === 0 && !isViewOnly.current)
+  ) {
     return <div>No more items left to annotate!</div>;
   }
-
-  // TODO: handle completed items when restarting queue
-  const totalItems = countItemsData.data ?? 0;
-
-  console.log("isViewOnly", isViewOnly.current);
 
   return (
     <div className="grid h-full grid-rows-[1fr,auto] gap-4 overflow-hidden">
@@ -227,8 +234,7 @@ export const AnnotationQueueItemPage: React.FC<{
                 }
               }}
               disabled={
-                !nextItemData.data &&
-                totalItems === progressIndex + 1 &&
+                (!nextItemData.data && totalItems === progressIndex + 1) ||
                 progressIndex === seenItemIds.length - 1
               }
               size="lg"

@@ -247,7 +247,9 @@ export function AnnotationQueueItemsTable({
       size: 60,
       cell: ({ row }) => {
         const status: QueueItemRowData["status"] = row.getValue("status");
-        return <StatusBadge type={status.toLowerCase()} />;
+        return (
+          <StatusBadge className="capitalize" type={status.toLowerCase()} />
+        );
       },
     },
     {
@@ -319,8 +321,6 @@ export function AnnotationQueueItemsTable({
     "queueItemsColumnOrder",
     columns,
   );
-
-  console.log({ columnOrder });
 
   return (
     <>
