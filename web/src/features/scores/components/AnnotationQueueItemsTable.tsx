@@ -202,7 +202,7 @@ export function AnnotationQueueItemsTable({
         const id: QueueItemRowData["id"] = row.getValue("id");
         return (
           <TableLink
-            path={`/project/${projectId}/annotation-queues/${queueId}/items/${id}`}
+            path={`/project/${projectId}/annotation-queues/${queueId}/items?itemId=${id}&viewOnly=true`}
             value={id}
           />
         );
@@ -363,8 +363,8 @@ export function AnnotationQueueItemsTable({
               : {
                   isLoading: false,
                   isError: false,
-                  data: items.data.queueItems.flatMap((item) =>
-                    Array(20).fill(convertToTableRow(item)),
+                  data: items.data.queueItems.map((item) =>
+                    convertToTableRow(item),
                   ),
                 }
         }
