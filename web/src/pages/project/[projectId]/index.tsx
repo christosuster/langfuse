@@ -26,6 +26,7 @@ import { useDebounce } from "@/src/hooks/useDebounce";
 import { ScoreAnalytics } from "@/src/features/dashboard/components/score-analytics/ScoreAnalytics";
 import SetupTracingButton from "@/src/features/setup/components/SetupTracingButton";
 import { useUiCustomization } from "@/src/ee/features/ui-customization/useUiCustomization";
+import { ScoresCountChart } from "@/src/features/dashboard/components/ScoresCountChart";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -188,11 +189,16 @@ export default function Dashboard() {
             globalFilterState={mergedFilterState}
           />
         )}
-        <ScoresTable
+        <ScoresCountChart
           className="col-span-1 xl:col-span-2"
           projectId={projectId}
           globalFilterState={mergedFilterState}
         />
+        {/* <ScoresTable
+          className="col-span-1 xl:col-span-2"
+          projectId={projectId}
+          globalFilterState={mergedFilterState}
+        /> */}
         <TracesTimeSeriesChart
           className="col-span-1 xl:col-span-3"
           projectId={projectId}
