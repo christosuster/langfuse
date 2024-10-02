@@ -147,7 +147,7 @@ export const ScoresCountChart = ({
   return (
     <DashboardCard
       className={className}
-      title="Trace Scores"
+      title="Message Scores"
       isLoading={scoredMetricsData.isLoading || totalMetricsData.isLoading}
     >
       <TotalMetric
@@ -156,7 +156,7 @@ export const ScoresCountChart = ({
             ? compactNumberFormatter(chatTraces.countTraceId as number)
             : "0"
         }
-        description="Total score counts"
+        description="Messages"
       />
       {!totalTracesCount ? (
         <NoData noDataText="No data" />
@@ -167,14 +167,14 @@ export const ScoresCountChart = ({
             variant="pie"
             index="label"
             category="value"
-            colors={["teal", "rose", "stone"]}
+            colors={["green", "rose", "stone"]}
           />
           <Legend
             categories={combinedData.map((item) => {
               return item.label;
             })}
             className="max-w-sm"
-            colors={["teal", "rose", "stone"]}
+            colors={["green", "rose", "stone"]}
           />
         </div>
       )}

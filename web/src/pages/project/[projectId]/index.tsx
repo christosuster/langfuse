@@ -27,6 +27,9 @@ import { ScoreAnalytics } from "@/src/features/dashboard/components/score-analyt
 import SetupTracingButton from "@/src/features/setup/components/SetupTracingButton";
 import { useUiCustomization } from "@/src/ee/features/ui-customization/useUiCustomization";
 import { ScoresCountChart } from "@/src/features/dashboard/components/ScoresCountChart";
+import { SessionsChart } from "@/src/features/dashboard/components/SessionsChart";
+import { OverviewCard } from "@/src/features/dashboard/components/OverviewCard";
+import { TagFrequencyBarList } from "@/src/features/dashboard/components/TagFrequencyBarList";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -139,6 +142,14 @@ export default function Dashboard() {
   return (
     <div className="md:container">
       <Header title="Dashboard" actionButtons={<SetupTracingButton />} />
+      <div className="w-full overflow-hidden border-b pb-3">
+        <SessionsChart
+          className="w-full"
+          projectId={projectId}
+          globalFilterState={mergedFilterState}
+          agg={agg}
+        />
+      </div>
       <div className="my-3 flex flex-wrap items-center justify-between gap-2">
         <div className="flex flex-col gap-2 lg:flex-row">
           <DatePickerWithRange
@@ -177,18 +188,28 @@ export default function Dashboard() {
         )}
       </div>
       <div className="grid w-full grid-cols-1 gap-3 overflow-hidden lg:grid-cols-2 xl:grid-cols-6">
-        <TracesBarListChart
+        <OverviewCard
           className="col-span-1 xl:col-span-2"
           projectId={projectId}
           globalFilterState={mergedFilterState}
         />
-        {!disableExpensiveDashboardComponents && (
+        {/* <TracesBarListChart
+          className="col-span-1 xl:col-span-2"
+          projectId={projectId}
+          globalFilterState={mergedFilterState}
+        /> */}
+        <TagFrequencyBarList
+          className="col-span-1 xl:col-span-2"
+          projectId={projectId}
+          globalFilterState={mergedFilterState}
+        />
+        {/* {!disableExpensiveDashboardComponents && (
           <ModelCostTable
             className="col-span-1 xl:col-span-2"
             projectId={projectId}
             globalFilterState={mergedFilterState}
           />
-        )}
+        )} */}
         <ScoresCountChart
           className="col-span-1 xl:col-span-2"
           projectId={projectId}
