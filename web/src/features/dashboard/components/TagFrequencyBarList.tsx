@@ -2,14 +2,10 @@ import { api } from "@/src/utils/api";
 import { type FilterState } from "@langfuse/shared";
 import { ExpandListButton } from "@/src/features/dashboard/components/cards/ChevronButton";
 import { useState } from "react";
-import DocPopup from "@/src/components/layouts/doc-popup";
 import { DashboardCard } from "@/src/features/dashboard/components/cards/DashboardCard";
 import { TotalMetric } from "@/src/features/dashboard/components/TotalMetric";
 import { BarList } from "@tremor/react";
 import { NoData } from "@/src/features/dashboard/components/NoData";
-import { compactNumberFormatter } from "@/src/utils/numbers";
-import { useOrderByState } from "@/src/features/orderBy/hooks/useOrderByState";
-import { tr } from "date-fns/locale";
 
 export const TagFrequencyBarList = ({
   className,
@@ -72,9 +68,7 @@ export const TagFrequencyBarList = ({
     }),
   );
 
-  console.log(tagCountArray);
-
-  console.log(tagCount);
+  tagCountArray.sort((a, b) => b.value - a.value);
 
   const maxNumberOfEntries = { collapsed: 4, expanded: 20 };
 

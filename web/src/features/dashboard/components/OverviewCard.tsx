@@ -1,13 +1,9 @@
 import { api } from "@/src/utils/api";
 import { type FilterState } from "@langfuse/shared";
-import { ExpandListButton } from "@/src/features/dashboard/components/cards/ChevronButton";
-import { useState } from "react";
-import DocPopup from "@/src/components/layouts/doc-popup";
 import { DashboardCard } from "@/src/features/dashboard/components/cards/DashboardCard";
 import { TotalMetric } from "@/src/features/dashboard/components/TotalMetric";
 import { BarList } from "@tremor/react";
 import { NoData } from "@/src/features/dashboard/components/NoData";
-import { compactNumberFormatter } from "@/src/utils/numbers";
 import { useOrderByState } from "@/src/features/orderBy/hooks/useOrderByState";
 
 export const OverviewCard = ({
@@ -56,8 +52,6 @@ export const OverviewCard = ({
       enabled: sessionData.data !== undefined,
     },
   );
-
-  console.log("sessionMetrics", sessionMetrics);
 
   type SessionType = {
     id: string;
@@ -111,7 +105,11 @@ export const OverviewCard = ({
     >
       <>
         <TotalMetric
-          metric={(averageSessionDuration / 60).toFixed(1) || 0}
+          metric={
+            averageSessionDuration
+              ? (averageSessionDuration / 60).toFixed(2)
+              : 0
+          }
           description={"Average Session Duration (in minutes)"}
         />
         {chartData[0].value > 0 ? (

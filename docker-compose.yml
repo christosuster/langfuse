@@ -1,6 +1,9 @@
 services:
   langfuse-server:
-    image: langfuse/langfuse:2
+    # image: langfuse/langfuse:latest
+    build:
+      dockerfile: ./web/Dockerfile
+      context: .
     depends_on:
       db:
         condition: service_healthy

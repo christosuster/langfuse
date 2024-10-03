@@ -147,7 +147,6 @@ export default function Dashboard() {
           className="w-full"
           projectId={projectId}
           globalFilterState={mergedFilterState}
-          agg={agg}
         />
       </div>
       <div className="my-3 flex flex-wrap items-center justify-between gap-2">

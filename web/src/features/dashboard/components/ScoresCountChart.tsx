@@ -1,38 +1,11 @@
-import DocPopup from "@/src/components/layouts/doc-popup";
 import { NoData } from "@/src/features/dashboard/components/NoData";
 import { DashboardCard } from "@/src/features/dashboard/components/cards/DashboardCard";
-import { DashboardTable } from "@/src/features/dashboard/components/cards/DashboardTable";
-import {
-  type ScoreDataType,
-  type ScoreSource,
-  type FilterState,
-} from "@langfuse/shared";
+import { type FilterState } from "@langfuse/shared";
 import { api } from "@/src/utils/api";
 import { compactNumberFormatter } from "@/src/utils/numbers";
-import { RightAlignedCell } from "./RightAlignedCell";
-import { LeftAlignedCell } from "@/src/features/dashboard/components/LeftAlignedCell";
 import { TotalMetric } from "./TotalMetric";
 import { createTracesTimeFilter } from "@/src/features/dashboard/lib/dashboard-utils";
-import { getScoreDataTypeIcon } from "@/src/features/scores/components/ScoreDetailColumnHelpers";
-import { isCategoricalDataType } from "@/src/features/scores/lib/helpers";
-import { type DatabaseRow } from "@/src/server/api/services/query-builder";
 import { DonutChart, Legend } from "@tremor/react";
-
-const dropValuesForCategoricalScores = (
-  value: number,
-  scoreDataType: ScoreDataType,
-): string => {
-  return isCategoricalDataType(scoreDataType)
-    ? "-"
-    : compactNumberFormatter(value);
-};
-
-const scoreNameSourceDataTypeMatch =
-  (scoreName: string, scoreSource: ScoreSource, scoreDataType: ScoreDataType) =>
-  (item: DatabaseRow) =>
-    item.scoreName === scoreName &&
-    item.scoreSource === scoreSource &&
-    item.scoreDataType === scoreDataType;
 
 export const ScoresCountChart = ({
   className,
@@ -43,9 +16,6 @@ export const ScoresCountChart = ({
   projectId: string;
   globalFilterState: FilterState;
 }) => {
-  const dataFormatter = (number: number) =>
-    `$ ${Intl.NumberFormat("us").format(number).toString()}`;
-
   const totalMetricsLocalFilters = createTracesTimeFilter(
     globalFilterState,
     "timestamp",
