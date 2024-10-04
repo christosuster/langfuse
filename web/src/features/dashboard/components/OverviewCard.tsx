@@ -83,7 +83,7 @@ export const OverviewCard = ({
     totalDuration / (sessionMetrics.data?.length ?? 1);
 
   const messages = traces.data
-    ? traces.data.filter((item) => item.traceName == "LlamaIndex Chat")
+    ? traces.data.filter((item) => item.traceName == "Chat")
     : [];
   const chartData = [
     {

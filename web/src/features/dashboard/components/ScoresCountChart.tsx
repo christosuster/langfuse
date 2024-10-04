@@ -76,7 +76,7 @@ export const ScoresCountChart = ({
   );
 
   const chatTraces = totalMetricsData.data?.find(
-    (item) => item.traceName === "LlamaIndex Chat",
+    (item) => item.traceName === "Chat",
   );
 
   const scoredTraces = scoredMetricsData.data;
