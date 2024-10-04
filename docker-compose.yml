@@ -13,7 +13,7 @@ services:
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
       - NEXTAUTH_SECRET=mysecret
       - SALT=mysalt
-      - ENCRYPTION_KEY=e6c074a14b8215a2aa493ea44c01190cd23de3c5a4121d168b231436fb001f27 # generate via `openssl rand -hex 32`
+      - ENCRYPTION_KEY=4ae4fc83da74776c188ee528b68e490d035858ca6e6cc3f3d704e90d6387ff82 # generate via `openssl rand -hex 32`
       - NEXTAUTH_URL=http://localhost:3000
       - TELEMETRY_ENABLED=${TELEMETRY_ENABLED:-false}
       - LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES=${LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES:-false}
