@@ -40,6 +40,14 @@ export const TagFrequencyBarList = ({
     },
   );
 
+  const filteredTraces = traces.data?.traces?.filter(
+    (trace) => trace.name == "Chat",
+  );
+
+  console.log("traces", traces);
+
+  console.log("filteredTraces", filteredTraces);
+
   type TagCountType = {
     [key: string]: number;
   };
@@ -49,8 +57,8 @@ export const TagFrequencyBarList = ({
     value: number;
   };
 
-  const tagCount: TagCountType = traces?.data?.traces
-    ? traces.data.traces.reduce((acc, obj) => {
+  const tagCount: TagCountType = filteredTraces
+    ? filteredTraces.reduce((acc, obj) => {
         const tag = obj.tags[0];
         if (acc[tag]) {
           acc[tag] += 1; // Increment the count if the tag is already in the accumulator
@@ -85,7 +93,7 @@ export const TagFrequencyBarList = ({
     >
       <>
         <TotalMetric
-          metric={traces.data?.traces?.length || 0}
+          metric={filteredTraces?.length || 0}
           description={"Messages"}
         />
         {tagCountArray.length > 0 ? (

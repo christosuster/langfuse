@@ -1,6 +1,6 @@
 services:
   langfuse-server:
-    # image: langfuse/langfuse:latest
+    image: chris/langfuse:latest
     build:
       dockerfile: ./web/Dockerfile
       context: .
