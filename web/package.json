@@ -24,6 +24,8 @@
   "dependencies": {
     "@anthropic-ai/tokenizer": "^0.0.4",
     "@appsignal/opentelemetry-instrumentation-bullmq": "^0.7.1",
+    "@aws-sdk/client-s3": "^3.627.0",
+    "@aws-sdk/client-cloudfront": "^3.714.0",
     "@baselime/trpc-opentelemetry-middleware": "^0.1.2",
     "@codemirror/lang-json": "^6.0.1",
     "@codemirror/lint": "^6.8.0",

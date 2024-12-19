@@ -3,15 +3,15 @@ import {
   createTRPCRouter,
   protectedProjectProcedure,
 } from "@/src/server/api/trpc";
-// import {
-//   GetObjectCommand,
-//   PutObjectCommand,
-//   S3Client,
-// } from "@aws-sdk/client-s3";
-// import {
-//   CloudFrontClient,
-//   CreateInvalidationCommand,
-// } from "@aws-sdk/client-cloudfront";
+import {
+  GetObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from "@aws-sdk/client-s3";
+import {
+  CloudFrontClient,
+  CreateInvalidationCommand,
+} from "@aws-sdk/client-cloudfront";
 import { ConfigType } from "@/src/utils/types";
 import { throwIfNoProjectAccess } from "@/src/features/rbac/utils/checkProjectAccess";
 
@@ -56,28 +56,28 @@ const configSchema = z.object({
   uploadFileMessage: z.string().optional(),
 });
 
-// const s3Client = new S3Client({
-//   region: "eu-west-1",
-// });
+const s3Client = new S3Client({
+  region: "eu-west-1",
+});
 
-// const cloudfrontClient = new CloudFrontClient({
-//   region: "eu-west-1",
-// });
+const cloudfrontClient = new CloudFrontClient({
+  region: "eu-west-1",
+});
 
-// const distributionId = "E1EV5LMHFSDHNO";
+const distributionId = "E1EV5LMHFSDHNO";
 
-// const invalidationParam = {
-//   DistributionId: distributionId,
-//   InvalidationBatch: {
-//     CallerReference: `${Date.now()}`,
-//     Paths: {
-//       Quantity: 1,
-//       Items: ["/*"],
-//     },
-//   },
-// };
+const invalidationParam = {
+  DistributionId: distributionId,
+  InvalidationBatch: {
+    CallerReference: `${Date.now()}`,
+    Paths: {
+      Quantity: 1,
+      Items: ["/*"],
+    },
+  },
+};
 
-// const invalidationCommand = new CreateInvalidationCommand(invalidationParam);
+const invalidationCommand = new CreateInvalidationCommand(invalidationParam);
 
 const bucketName = "nettalliansen-prod-bucket";
 
@@ -93,18 +93,18 @@ export const chatbotConfigRouter = createTRPCRouter({
     .query(async ({ input, ctx }) => {
       const keyName = `${input.projectName}/${input.chatbotType}-config.json`;
 
-      // const res = await s3Client.send(
-      //   new GetObjectCommand({
-      //     Bucket: bucketName,
-      //     Key: keyName,
-      //   }),
-      // );
+      const res = await s3Client.send(
+        new GetObjectCommand({
+          Bucket: bucketName,
+          Key: keyName,
+        }),
+      );
 
-      // const data = await res.Body?.transformToString();
+      const data = await res.Body?.transformToString();
 
-      // const parsedData = JSON.parse(data || "");
+      const parsedData = JSON.parse(data || "");
 
-      const parsedData = JSON.parse("");
+      // const parsedData = JSON.parse("");
 
       return parsedData as ConfigType;
     }),
@@ -126,17 +126,17 @@ export const chatbotConfigRouter = createTRPCRouter({
 
       const keyName = `${input.projectName}/${input.chatbotType}-config.json`;
 
-      // const res = await s3Client.send(
-      //   new PutObjectCommand({
-      //     Bucket: bucketName,
-      //     Key: keyName,
-      //     Body: JSON.stringify(input.newConfigData),
-      //   }),
-      // );
+      const res = await s3Client.send(
+        new PutObjectCommand({
+          Bucket: bucketName,
+          Key: keyName,
+          Body: JSON.stringify(input.newConfigData),
+        }),
+      );
 
-      // const data = await cloudfrontClient.send(invalidationCommand);
+      const data = await cloudfrontClient.send(invalidationCommand);
 
-      // console.log("Invalidation data", data);
+      console.log("Invalidation data", data);
 
       return true;
     }),
