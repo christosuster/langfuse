@@ -1,6 +1,6 @@
 services:
   langfuse-server:
-    image: chris/langfuse:v2.3
+    image: chris/langfuse:v2.5.0
     depends_on:
       db:
         condition: service_healthy

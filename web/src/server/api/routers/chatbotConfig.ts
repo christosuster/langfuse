@@ -66,19 +66,6 @@ const cloudfrontClient = new CloudFrontClient({
 
 const distributionId = "E1EV5LMHFSDHNO";
 
-const invalidationParam = {
-  DistributionId: distributionId,
-  InvalidationBatch: {
-    CallerReference: `${Date.now()}`,
-    Paths: {
-      Quantity: 1,
-      Items: ["/*"],
-    },
-  },
-};
-
-const invalidationCommand = new CreateInvalidationCommand(invalidationParam);
-
 const bucketName = "nettalliansen-prod-bucket";
 
 export const chatbotConfigRouter = createTRPCRouter({
@@ -132,6 +119,21 @@ export const chatbotConfigRouter = createTRPCRouter({
           Key: keyName,
           Body: JSON.stringify(input.newConfigData),
         }),
+      );
+
+      const invalidationParam = {
+        DistributionId: distributionId,
+        InvalidationBatch: {
+          CallerReference: `${Date.now()}`,
+          Paths: {
+            Quantity: 1,
+            Items: ["/*"],
+          },
+        },
+      };
+
+      const invalidationCommand = new CreateInvalidationCommand(
+        invalidationParam,
       );
 
       const data = await cloudfrontClient.send(invalidationCommand);
