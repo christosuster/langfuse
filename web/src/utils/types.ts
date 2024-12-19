@@ -130,3 +130,38 @@ export const isTiktokenModel = (model: string): model is TiktokenModel => {
     "gpt-4o",
   ].includes(model);
 };
+
+export type ConfigType = {
+  fullScreenChatbotUrl?: string;
+  publicChatApi: string;
+  langfuseHost: string;
+  langfusePublicKey: string;
+  popup?: "left" | "right";
+  warningMessage?: string;
+  greetingMessage?: string;
+  botAvatar?: string;
+  botName?: string;
+  botNameColor?: string;
+  userAvatar?: string;
+  userName?: string;
+  userNameColor?: string;
+  popupLogo?: string;
+  popupTitle?: string;
+  popupSubtitle?: string;
+  themeColor?: string;
+  quickChat?: {
+    title?: string;
+    subtitle?: string;
+    items?: Array<{
+      id: number;
+      title: string;
+      image?: string;
+      imagePosition?: "left" | "right" | "cover";
+      textXPosition?: "textLeft" | "textRight";
+      textYPosition?: "textTop" | "textBottom";
+    }>;
+  };
+  chatSuggestionsList?: string[];
+  TOSMessage?: string;
+  uploadFileMessage?: string;
+};

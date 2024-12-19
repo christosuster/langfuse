@@ -1,7 +1,6 @@
 import { prisma } from "@langfuse/shared/src/db";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { env } from "@/src/env.mjs";
-// import { env } from "../../env";
 
 const SECRET_KEY = env.DELETE_TRACES_SECRET_KEY;
 
@@ -9,8 +8,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  console.log("SECRET_KEY", SECRET_KEY);
-
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }

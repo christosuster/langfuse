@@ -372,7 +372,7 @@ export default function Layout(props: PropsWithChildren) {
                 <EnvLabel className="my-2" />
                 <MainNavigation nav={topNavigation} />
                 <MainNavigation nav={bottomNavigation} className="mt-auto" />
-                {uiCustomization?.feedbackHref ? (
+                {/* {uiCustomization?.feedbackHref ? (
                   <Link href={uiCustomization.feedbackHref}>
                     <li className="group -mx-2 my-1 flex cursor-pointer gap-x-3 rounded-md p-1.5 text-sm font-semibold text-primary hover:bg-primary-foreground hover:text-primary-accent">
                       <MessageSquarePlus
@@ -397,7 +397,7 @@ export default function Layout(props: PropsWithChildren) {
                       Feedback
                     </li>
                   </FeedbackButtonWrapper>
-                )}
+                )} */}
               </ul>
             </nav>
 

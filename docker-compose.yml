@@ -1,22 +1,24 @@
 services:
   langfuse-server:
-    image: chris/langfuse:latest
-    build:
-      dockerfile: ./web/Dockerfile
-      context: .
+    image: chris/langfuse:v2.3
     depends_on:
       db:
         condition: service_healthy
     ports:
       - "3000:3000"
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
-      - NEXTAUTH_SECRET=mysecret
-      - SALT=mysalt
-      - ENCRYPTION_KEY=4ae4fc83da74776c188ee528b68e490d035858ca6e6cc3f3d704e90d6387ff82 # generate via `openssl rand -hex 32`
-      - NEXTAUTH_URL=http://localhost:3000
-      - TELEMETRY_ENABLED=${TELEMETRY_ENABLED:-false}
+      - DATABASE_URL=${DATABASE_URL}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - SALT=${SALT}
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
+      - NEXTAUTH_URL=${NEXTAUTH_URL}
+      - TELEMETRY_ENABLED=false
       - LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES=${LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES:-false}
+      - LANGFUSE_ALLOWED_ORGANIZATION_CREATORS=${LANGFUSE_ALLOWED_ORGANIZATION_CREATORS}
+      - LANGFUSE_EE_LICENSE_KEY=${LANGFUSE_EE_LICENSE_KEY}
+      - DELETE_TRACES_SECRET_KEY=${DELETE_TRACES_SECRET_KEY}
+      - SMTP_CONNECTION_URL=${SMTP_CONNECTION_URL}
+      - EMAIL_FROM_ADDRESS=${EMAIL_FROM_ADDRESS}
 
   db:
     image: postgres

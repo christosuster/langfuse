@@ -24,6 +24,7 @@ import { batchExportRouter } from "@/src/server/api/routers/batchExport";
 import { utilsRouter } from "@/src/server/api/routers/utilities";
 import { uiCustomizationRouter } from "@/src/ee/features/ui-customization/uiCustomizationRouter";
 import { commentsRouter } from "@/src/server/api/routers/comments";
+import { chatbotConfigRouter } from "@/src/server/api/routers/chatbotConfig";
 
 /**
  * This is the primary router for your server.
@@ -56,6 +57,7 @@ export const appRouter = createTRPCRouter({
   utilities: utilsRouter,
   uiCustomization: uiCustomizationRouter,
   comments: commentsRouter,
+  chatbotConfig: chatbotConfigRouter,
 });
 
 // export type definition of API
