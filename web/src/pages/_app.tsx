@@ -12,8 +12,10 @@ import { QueryParamProvider } from "use-query-params";
 
 import "@/src/styles/globals.css";
 import Layout from "@/src/components/layouts/layout";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useRouter, withRouter } from "next/router";
+
+import { NextIntlClientProvider } from "next-intl";
 
 import posthog from "posthog-js";
 import { PostHogProvider } from "posthog-js/react";
@@ -65,11 +67,28 @@ if (
   });
 }
 
-const MyApp: AppType<{ session: Session | null }> = ({
+interface MyAppProps {
+  session: Session | null;
+}
+
+const MyApp: AppType<MyAppProps> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
   const router = useRouter();
+
+  const locale = router.locale || "en";
+
+  const [messages, setMessages] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    const loadMessages = async () => {
+      const loadedMessages = await import(`../../messages/${locale}.json`);
+      setMessages(loadedMessages.default);
+    };
+
+    loadMessages();
+  }, [locale]);
 
   useEffect(() => {
     // PostHog (cloud.langfuse.com)
@@ -105,7 +124,13 @@ const MyApp: AppType<{ session: Session | null }> = ({
                   disableTransitionOnChange
                 >
                   <Layout>
-                    <Component {...pageProps} />
+                    <NextIntlClientProvider
+                      locale={locale}
+                      timeZone="Europe/Vienna"
+                      messages={messages}
+                    >
+                      <Component {...pageProps} />
+                    </NextIntlClientProvider>
                     <UserTracking />
                   </Layout>
                 </ThemeProvider>
@@ -118,6 +143,22 @@ const MyApp: AppType<{ session: Session | null }> = ({
     </QueryParamProvider>
   );
 };
+
+// MyApp.getInitialProps = async (appContext) => {
+//   const ctx = appContext.ctx;
+
+//   const locale = ctx.locale || "en";
+
+//   const messages = (await import(`../../messages/${locale}.json`)).default;
+
+//   console.log("locale", locale);
+//   console.log("messages", messages);
+
+//   return {
+//     session: null,
+//     messages,
+//   };
+// };
 
 export default api.withTRPC(MyApp);
 

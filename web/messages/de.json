@@ -1,0 +1,36 @@
+{
+  "Home": {
+    "title": "Startseite",
+    "actions": {
+      "search_projects": "Projekte suchen",
+      "new_organization": "Neue Organisation",
+      "go_to_project": "Zum Projekt gehen",
+      "new_project": "Neues Projekt"
+    }
+  },
+  "Project": {
+    "title": "Dashboard",
+    "weekly_conversations": {
+      "title": "Wöchentliche Gespräche",
+      "subtitle": "Gespräche der letzten 7 Tage",
+      "conversation_marker": "Gespräche"
+    },
+    "overview": {
+      "title": "Übersicht",
+      "subtitle": "Durchschnittliche Sitzungsdauer (in Minuten)",
+      "messages_marker": "Nachrichten",
+      "conversations_marker": "Gespräche"
+    },
+    "message_categories": {
+      "title": "Nachrichtenkategorien",
+      "subtitle": "Nachrichten"
+    },
+    "message_scores": {
+      "title": "Nachrichtenscores",
+      "subtitle": "Nachrichten",
+      "positive_marker": "Positiv",
+      "negative_marker": "Negativ",
+      "not_scored_marker": "Nicht bewertet"
+    }
+  }
+}

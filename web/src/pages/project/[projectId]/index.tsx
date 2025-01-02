@@ -30,6 +30,8 @@ import { ScoresCountChart } from "@/src/features/dashboard/components/ScoresCoun
 import { SessionsChart } from "@/src/features/dashboard/components/SessionsChart";
 import { OverviewCard } from "@/src/features/dashboard/components/OverviewCard";
 import { TagFrequencyBarList } from "@/src/features/dashboard/components/TagFrequencyBarList";
+import { GetServerSidePropsContext, GetStaticPropsContext } from "next";
+import { useTranslations } from "next-intl";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -139,8 +141,12 @@ export default function Dashboard() {
 
   const mergedFilterState: FilterState = [...userFilterState, ...timeFilter];
 
+  const t = useTranslations("Index");
+
   return (
     <div className="md:container">
+      <p>{t("description")}</p>
+
       <Header title="Dashboard" actionButtons={<SetupTracingButton />} />
       <div className="w-full overflow-hidden border-b pb-3">
         <SessionsChart
@@ -273,3 +279,17 @@ export default function Dashboard() {
     </div>
   );
 }
+
+// export async function getServerSideProps({
+//   locale,
+// }: GetServerSidePropsContext) {
+//   console.log("locale", locale);
+//   const messages = (await import(`../../../../messages/${locale}.json`))
+//     .default;
+
+//   return {
+//     props: {
+//       messages,
+//     },
+//   };
+// }

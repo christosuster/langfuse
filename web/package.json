@@ -24,8 +24,8 @@
   "dependencies": {
     "@anthropic-ai/tokenizer": "^0.0.4",
     "@appsignal/opentelemetry-instrumentation-bullmq": "^0.7.1",
-    "@aws-sdk/client-s3": "^3.627.0",
     "@aws-sdk/client-cloudfront": "^3.714.0",
+    "@aws-sdk/client-s3": "^3.627.0",
     "@baselime/trpc-opentelemetry-middleware": "^0.1.2",
     "@codemirror/lang-json": "^6.0.1",
     "@codemirror/lint": "^6.8.0",
@@ -122,6 +122,7 @@
     "lucide-react": "^0.436.0",
     "next": "^14.2.6",
     "next-auth": "^4.24.7",
+    "next-intl": "^3.26.3",
     "next-query-params": "^5.0.0",
     "next-themes": "^0.3.0",
     "posthog-js": "^1.161.3",

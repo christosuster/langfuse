@@ -1,0 +1,36 @@
+{
+  "Home": {
+    "title": "Hjem",
+    "actions": {
+      "search_projects": "Søk etter prosjekter",
+      "new_organization": "Ny organisasjon",
+      "go_to_project": "Gå til prosjekt",
+      "new_project": "Nytt prosjekt"
+    }
+  },
+  "Project": {
+    "title": "Dashboard",
+    "weekly_conversations": {
+      "title": "Ukentlige samtaler",
+      "subtitle": "Samtaler fra de siste 7 dagene",
+      "conversation_marker": "Samtaler"
+    },
+    "overview": {
+      "title": "Oversikt",
+      "subtitle": "Gjennomsnittlig sesjonsvarighet (i minutter)",
+      "messages_marker": "Meldinger",
+      "conversations_marker": "Samtaler"
+    },
+    "message_categories": {
+      "title": "Meldingskategorier",
+      "subtitle": "Meldinger"
+    },
+    "message_scores": {
+      "title": "Meldingsvurderinger",
+      "subtitle": "Meldinger",
+      "positive_marker": "Positiv",
+      "negative_marker": "Negativ",
+      "not_scored_marker": "Ikke vurdert"
+    }
+  }
+}

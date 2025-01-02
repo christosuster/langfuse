@@ -1,0 +1,36 @@
+{
+  "Home": {
+    "title": "Home",
+    "actions": {
+      "search_projects": "Search projects",
+      "new_organization": "New Organization",
+      "go_to_project": "Go to project",
+      "new_project": "New Project"
+    }
+  },
+  "Project": {
+    "title": "Dashboard",
+    "weekly_conversations": {
+      "title": "Weekly Conversations",
+      "subtitle": "Conversations of the last 7 days",
+      "conversation_marker": "Conversations"
+    },
+    "overview": {
+      "title": "Overview",
+      "subtitle": "Average Session Duration (in minutes)",
+      "messages_marker": "Messages",
+      "conversations_marker": "Conversations"
+    },
+    "message_categories": {
+      "title": "Message Categories",
+      "subtitle": "Messages"
+    },
+    "message_scores": {
+      "title": "Message Scores",
+      "subtitle": "Messages",
+      "positive_marker": "Positive",
+      "negative_marker": "Negative",
+      "not_scored_marker": "Not Scored"
+    }
+  }
+}

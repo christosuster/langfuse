@@ -25,6 +25,7 @@ import {
   createProjectRoute,
 } from "@/src/features/setup/setupRoutes";
 import { isCloudPlan, planLabels } from "@langfuse/shared";
+import { useTranslations } from "next-intl";
 
 const SingleOrganizationProjectOverview = ({
   orgId,
@@ -35,6 +36,7 @@ const SingleOrganizationProjectOverview = ({
   search?: string;
   level?: "h2" | "h3";
 }) => {
+  const t = useTranslations("Home");
   const createProjectAccess = useHasOrganizationAccess({
     organizationId: orgId,
     scope: "projects:create",
@@ -110,13 +112,13 @@ const SingleOrganizationProjectOverview = ({
               <Button asChild variant="secondary">
                 <Link href={createProjectRoute(orgId)}>
                   <PlusIcon className="mr-2 h-4 w-4" aria-hidden="true" />
-                  New project
+                  {t("actions.new_project")}
                 </Link>
               </Button>
             ) : (
               <Button variant="secondary" disabled>
                 <LockIcon className="mr-2 h-4 w-4" aria-hidden="true" />
-                New project
+                {t("actions.new_project")}
               </Button>
             )}
           </>
@@ -135,7 +137,9 @@ const SingleOrganizationProjectOverview = ({
               </CardHeader>
               <CardFooter className="gap-2">
                 <Button asChild variant="secondary">
-                  <Link href={`/project/${project.id}`}>Go to project</Link>
+                  <Link href={`/project/${project.id}`}>
+                    {t("actions.go_to_project")}
+                  </Link>
                 </Button>
                 <Button asChild variant="ghost">
                   <Link href={`/project/${project.id}/settings`}>
@@ -158,6 +162,8 @@ export const OrganizationProjectOverview = () => {
   const organizations = session.data?.user?.organizations;
   const [{ search }, setQueryParams] = useQueryParams({ search: StringParam });
 
+  const t = useTranslations("Home");
+
   if (organizations === undefined) {
     return "loading...";
   }
@@ -171,19 +177,19 @@ export const OrganizationProjectOverview = () => {
       {!queryOrgId && (
         <>
           <Header
-            title="Home"
+            title={t("title")}
             actionButtons={
               <>
                 <Input
                   className="w-36 lg:w-56"
-                  placeholder="Search projects"
+                  placeholder={t("actions.search_projects")}
                   onChange={(e) => setQueryParams({ search: e.target.value })}
                 />
                 {canCreateOrg && (
                   <Button data-testid="create-organization-btn" asChild>
                     <Link href={createOrganizationRoute}>
                       <PlusIcon className="mr-1.5 h-4 w-4" aria-hidden="true" />
-                      New Organization
+                      {t("actions.new_organization")}
                     </Link>
                   </Button>
                 )}
@@ -239,6 +245,7 @@ const IntroducingOrganizations = () => (
 );
 
 const Onboarding = () => {
+  const t = useTranslations("Home");
   const session = useSession();
   const canCreateOrgs = session.data?.user?.canCreateOrganizations;
   return (
@@ -260,7 +267,7 @@ const Onboarding = () => {
           <Button data-testid="create-project-btn" asChild>
             <Link href={createOrganizationRoute}>
               <PlusIcon className="mr-2 h-4 w-4" aria-hidden="true" />
-              New Organization
+              {t("actions.new_project")}
             </Link>
           </Button>
         )}

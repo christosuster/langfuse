@@ -34,6 +34,7 @@ import { useQueryProjectOrOrganization } from "@/src/features/projects/hooks";
 import { useOrgEntitlements } from "@/src/features/entitlements/hooks";
 import { useUiCustomization } from "@/src/ee/features/ui-customization/useUiCustomization";
 import { hasOrganizationAccess } from "@/src/features/rbac/utils/checkOrganizationAccess";
+import LanguageSwitcher from "@/src/components/LanguageSwitcher";
 
 const signOutUser = async () => {
   localStorage.clear();
@@ -370,6 +371,7 @@ export default function Layout(props: PropsWithChildren) {
             <nav className="flex h-full flex-1 flex-col overflow-y-auto px-4 py-3">
               <ul role="list" className="flex h-full flex-col">
                 <EnvLabel className="my-2" />
+                <LanguageSwitcher />
                 <MainNavigation nav={topNavigation} />
                 <MainNavigation nav={bottomNavigation} className="mt-auto" />
                 {/* {uiCustomization?.feedbackHref ? (
