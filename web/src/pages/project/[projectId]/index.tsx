@@ -141,13 +141,11 @@ export default function Dashboard() {
 
   const mergedFilterState: FilterState = [...userFilterState, ...timeFilter];
 
-  const t = useTranslations("Index");
+  const t = useTranslations("Dashboard");
 
   return (
     <div className="md:container">
-      <p>{t("description")}</p>
-
-      <Header title="Dashboard" actionButtons={<SetupTracingButton />} />
+      <Header title={t("title")} actionButtons={<SetupTracingButton />} />
       <div className="w-full overflow-hidden border-b pb-3">
         <SessionsChart
           className="w-full"
@@ -279,17 +277,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
-// export async function getServerSideProps({
-//   locale,
-// }: GetServerSidePropsContext) {
-//   console.log("locale", locale);
-//   const messages = (await import(`../../../../messages/${locale}.json`))
-//     .default;
-
-//   return {
-//     props: {
-//       messages,
-//     },
-//   };
-// }

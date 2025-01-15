@@ -354,6 +354,7 @@ export default function Layout(props: PropsWithChildren) {
                   <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-background px-4 py-3">
                     <nav className="flex flex-1 flex-col">
                       <ul role="list">
+                        <LanguageSwitcher />
                         <MainNavigation nav={navigation} />
                       </ul>
                     </nav>
@@ -474,11 +475,12 @@ export default function Layout(props: PropsWithChildren) {
             <span className="sr-only">Open sidebar</span>
             <Bars3Icon className="h-5 w-5" aria-hidden="true" />
           </button>
-          <LangfuseLogo
+          {/* <LangfuseLogo
             version
             className="flex-1"
             showEnvLabel={session.data?.user?.email?.endsWith("@langfuse.com")}
-          />
+          /> */}
+          <div className="flex-1" />
           <Menu as="div" className="relative">
             <Menu.Button className="flex items-center gap-x-4 text-sm font-semibold text-primary">
               <span className="sr-only">Open user menu</span>

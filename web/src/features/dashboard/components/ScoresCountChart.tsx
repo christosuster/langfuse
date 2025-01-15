@@ -6,6 +6,7 @@ import { compactNumberFormatter } from "@/src/utils/numbers";
 import { TotalMetric } from "./TotalMetric";
 import { createTracesTimeFilter } from "@/src/features/dashboard/lib/dashboard-utils";
 import { DonutChart, Legend } from "@tremor/react";
+import { useTranslations } from "next-intl";
 
 export const ScoresCountChart = ({
   className,
@@ -16,6 +17,8 @@ export const ScoresCountChart = ({
   projectId: string;
   globalFilterState: FilterState;
 }) => {
+  const t = useTranslations("Dashboard");
+
   const totalMetricsLocalFilters = createTracesTimeFilter(
     globalFilterState,
     "timestamp",
@@ -95,21 +98,21 @@ export const ScoresCountChart = ({
 
   const combinedData = [
     {
-      label: "Postive",
+      label: t("message_scores.positive_marker"),
       value:
         scoredTraces && scoredTraces.find((e) => e.value === 1)?.countValue
           ? scoredTraces.find((e) => e.value === 1)?.countValue
           : 0,
     },
     {
-      label: "Negative",
+      label: t("message_scores.negative_marker"),
       value:
         scoredTraces && scoredTraces.find((e) => e.value === 0)?.countValue
           ? scoredTraces.find((e) => e.value === 0)?.countValue
           : 0,
     },
     {
-      label: "Not Scored",
+      label: t("message_scores.not_scored_marker"),
       value: totalTracesCount - totalScoredTracesCount,
     },
   ];
@@ -117,7 +120,7 @@ export const ScoresCountChart = ({
   return (
     <DashboardCard
       className={className}
-      title="Message Scores"
+      title={t("message_scores.title")}
       isLoading={scoredMetricsData.isLoading || totalMetricsData.isLoading}
     >
       <TotalMetric
@@ -126,7 +129,7 @@ export const ScoresCountChart = ({
             ? compactNumberFormatter(chatTraces.countTraceId as number)
             : "0"
         }
-        description="Messages"
+        description={t("message_scores.subtitle")}
       />
       {!totalTracesCount ? (
         <NoData noDataText="No data" />

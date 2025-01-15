@@ -82,15 +82,17 @@ const MyApp: AppType<MyAppProps> = ({
   const [messages, setMessages] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    const loadMessages = async () => {
-      const loadedMessages = await import(`../../messages/${locale}.json`);
-      setMessages(loadedMessages.default);
-    };
+    const systemLanguage = navigator.language.split("-")[0];
+    const savedLanguage = localStorage.getItem("language");
+    if (savedLanguage) {
+      if (savedLanguage !== locale)
+        router.push(router.asPath, undefined, { locale: savedLanguage });
+    } else {
+      localStorage.setItem("language", systemLanguage);
+      if (systemLanguage !== locale)
+        router.push(router.asPath, undefined, { locale: systemLanguage });
+    }
 
-    loadMessages();
-  }, [locale]);
-
-  useEffect(() => {
     // PostHog (cloud.langfuse.com)
     if (env.NEXT_PUBLIC_POSTHOG_KEY && env.NEXT_PUBLIC_POSTHOG_HOST) {
       const handleRouteChange = () => {
@@ -105,6 +107,15 @@ const MyApp: AppType<MyAppProps> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    const loadMessages = async () => {
+      const loadedMessages = await import(`../../messages/${locale}.json`);
+      setMessages(loadedMessages.default);
+    };
+
+    loadMessages();
+  }, [locale]);
 
   return (
     <QueryParamProvider adapter={NextAdapterPages}>

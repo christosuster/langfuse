@@ -95,17 +95,16 @@ export const SessionsChart = ({
     });
   }
 
-  const t = useTranslations("Index");
+  const t = useTranslations("Dashboard");
 
   return (
     <DashboardCard
       className={className}
-      title="Weekly Conversations"
-      description="Conversations of the last 7 days"
+      title={t("weekly_conversations.title")}
+      description={t("weekly_conversations.subtitle")}
       isLoading={sessions.isLoading}
       cardContentClassName="flex flex-col content-end "
     >
-      <p>{t("description")}</p>
       <LineChart
         className="h-80"
         data={transformedSessions}

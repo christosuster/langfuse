@@ -5,6 +5,7 @@ import { TotalMetric } from "@/src/features/dashboard/components/TotalMetric";
 import { BarList } from "@tremor/react";
 import { NoData } from "@/src/features/dashboard/components/NoData";
 import { useOrderByState } from "@/src/features/orderBy/hooks/useOrderByState";
+import { useTranslations } from "next-intl";
 
 export const OverviewCard = ({
   className,
@@ -15,6 +16,8 @@ export const OverviewCard = ({
   projectId: string;
   globalFilterState: FilterState;
 }) => {
+  const t = useTranslations("Dashboard");
+
   const timeFilter = globalFilterState.map((f) =>
     f.type === "datetime" ? { ...f, column: "timestamp" } : f,
   );
@@ -87,11 +90,11 @@ export const OverviewCard = ({
     : [];
   const chartData = [
     {
-      name: "Messages",
+      name: t("overview.messages_marker"),
       value: messages.length,
     },
     {
-      name: "Conversations",
+      name: t("overview.conversations_marker"),
       value: sessionMetrics.data?.length || 0,
     },
   ];
@@ -99,7 +102,7 @@ export const OverviewCard = ({
   return (
     <DashboardCard
       className={className}
-      title={"Overview"}
+      title={t("overview.title")}
       description={null}
       isLoading={traces.isLoading || sessionMetrics.isLoading}
     >
@@ -110,7 +113,7 @@ export const OverviewCard = ({
               ? (averageSessionDuration / 60).toFixed(2)
               : 0
           }
-          description={"Average Session Duration (in minutes)"}
+          description={t("overview.subtitle")}
         />
         {chartData[0].value > 0 ? (
           <>

@@ -6,6 +6,7 @@ import { DashboardCard } from "@/src/features/dashboard/components/cards/Dashboa
 import { TotalMetric } from "@/src/features/dashboard/components/TotalMetric";
 import { BarList } from "@tremor/react";
 import { NoData } from "@/src/features/dashboard/components/NoData";
+import { useTranslations } from "next-intl";
 
 export const TagFrequencyBarList = ({
   className,
@@ -16,6 +17,8 @@ export const TagFrequencyBarList = ({
   projectId: string;
   globalFilterState: FilterState;
 }) => {
+  const t = useTranslations("Dashboard");
+
   const [isExpanded, setIsExpanded] = useState(false);
 
   const timeFilter = globalFilterState.map((f) =>
@@ -43,10 +46,6 @@ export const TagFrequencyBarList = ({
   const filteredTraces = traces.data?.traces?.filter(
     (trace) => trace.name == "Chat",
   );
-
-  console.log("traces", traces);
-
-  console.log("filteredTraces", filteredTraces);
 
   type TagCountType = {
     [key: string]: number;
@@ -87,14 +86,14 @@ export const TagFrequencyBarList = ({
   return (
     <DashboardCard
       className={className}
-      title={"Message Categories"}
+      title={t("message_categories.title")}
       description={null}
       isLoading={traces.isLoading}
     >
       <>
         <TotalMetric
           metric={filteredTraces?.length || 0}
-          description={"Messages"}
+          description={t("message_categories.subtitle")}
         />
         {tagCountArray.length > 0 ? (
           <>

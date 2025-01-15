@@ -3,12 +3,10 @@ import { useRouter } from "next/router";
 import TracesTable from "@/src/components/table/use-cases/traces";
 import { FullScreenPage } from "@/src/components/layouts/full-screen-page";
 import SetupTracingButton from "@/src/features/setup/components/SetupTracingButton";
-import { useTranslations } from "next-intl";
 
 export default function Traces() {
   const router = useRouter();
   const projectId = router.query.projectId as string;
-  const t = useTranslations("Index");
 
   return (
     <FullScreenPage>
@@ -21,8 +19,6 @@ export default function Traces() {
         }}
         actionButtons={<SetupTracingButton />}
       />
-
-      <p>{t("description")}</p>
       <TracesTable projectId={projectId} />
     </FullScreenPage>
   );

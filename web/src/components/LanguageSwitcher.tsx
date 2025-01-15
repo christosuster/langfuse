@@ -6,7 +6,7 @@ import {
   SelectValue,
 } from "@/src/components/ui/select";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const LanguageSwitcher = () => {
   const router = useRouter();
@@ -15,13 +15,10 @@ const LanguageSwitcher = () => {
     { code: "en", label: "English" },
     { code: "de", label: "Deutsch" },
     { code: "no", label: "Norsk" },
-    // Add more languages here
   ]);
 
   const handleLanguageChange = (newLocale: string) => {
-    console.log("newLocale", newLocale);
-    console.log("router", router);
-    // Update the URL to reflect the new language
+    localStorage.setItem("language", newLocale);
     router.push(router.asPath, undefined, { locale: newLocale });
   };
 
